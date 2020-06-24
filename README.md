@@ -9,7 +9,7 @@ You must update the conf-example.sample file:
 
 After saving the conf.txt file, upload conf.txt, config.py, mqtt_as.py and main.py to the ESP32.  If you are unfamiliar with how to do this, check out https://github.com/BetaRavener/uPyLoader
 
-The sensors configured in the conf.txt file represent IO ports on the ESP32-DEVKITC board.  They are designed to work with isolated carrier boards from Atlas Scientific (for example https://www.atlas-scientific.com/carrier-boards/electrically-isolated-ezo-carrier-board-gen-2/).  You will need to purcahse the carrier boards, EZO modules, and probes from Atlas.
+The sensors configured in the conf.txt file represent IO ports on the ESP32-DEVKITC board.  They are designed to work with isolated carrier boards from Atlas Scientific (for example https://www.atlas-scientific.com/carrier-boards/electrically-isolated-ezo-carrier-board-gen-2/).  You will need to purchase the carrier boards, EZO modules, and probes from Atlas.
 
 Outputs are provided on the IO ports noted in the conf.txt file for Ph Pump (i.e. acid) and ORP Pump (i.e. bleach).  These pins can be connected through appropriate isolation and relays to peristaltic pumps used to dispense the required chemicals into the pool.
 
