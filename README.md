@@ -11,4 +11,6 @@ After saving the conf.txt file, upload conf.txt, config.py, mqtt_as.py and main.
 
 The sensors configured in the conf.txt file represent IO ports on the ESP32-DEVKITC board.  They are designed to work with isolated carrier boards from Atlas Scientific (for example https://www.atlas-scientific.com/carrier-boards/electrically-isolated-ezo-carrier-board-gen-2/).  You will need to purcahse the carrier boards, EZO modules, and probes from Atlas.
 
-Outputs are provided on the IO ports noted in the conf.txt file for Ph Pump (i.e. acid) and ORP Pump (i.e. bleach).  These pins can be connected through appropriate isolation and relays to peristaltic pumps used to dispense the required checmicals into the pool
+Outputs are provided on the IO ports noted in the conf.txt file for Ph Pump (i.e. acid) and ORP Pump (i.e. bleach).  These pins can be connected through appropriate isolation and relays to peristaltic pumps used to dispense the required checmicals into the pool.
+
+This system was designed to work with Home Assistant, although in principle any MQTT-enabled controller should work.  Configuration files for Home Assistant are in the directory "Home Assistant."  The .yaml package goes into your packages directory and the pool_fc.py is an appdaemon file and should go in the appropriate appdaemon folder.
