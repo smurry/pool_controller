@@ -1,0 +1,28 @@
+{
+"hostname" : "Pool_cont",
+"ssid" : "your_wifi_ssid",
+"password" : "your_wifi_password",
+"mqtt_server" : "your MQTT broker URL (e.g.192.168.x.x)",
+"mqtt_port" : "your MQTT broker port"
+"mqtt_username" : "your username for the MQTT broker"
+"mqtt_pw" : "your password for the MQTT broker"
+"topic_sub" : "Pool",
+"resp_pub" : "Pool/resp"
+"ph_topic_pub" : "Pool/Ph",
+"orp_topic_pub" : "Pool/ORP",
+"keepalive_interval" : 60,
+"report_interval" : 60,
+"ph_uart_port" : "2"
+"ph_tx" : "19"
+"ph_rx" : "21"
+"orp_uart_port" : "1"
+"orp_tx" : "16"
+"orp_rx" : "17"
+"pump_1_pin": "18"
+"pump_2_pin": "22"
+"ph_ma_window" : "10"
+"orp_ma_window" : "10"
+"ph_pump" : 1
+"orp_pump" 2
+"ds_pin" : 27
+}
