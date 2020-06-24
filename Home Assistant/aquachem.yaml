@@ -1,0 +1,102 @@
+# this file can be copied into your Home Assistant packages directory to create the sensors and automations used to control the
+# pool controller.  Be sure that you have your MQTT broker set up in Home Assistant and that the topics are configured correctly
+#
+
+#---- AQUACHEM INPUT NUMBERS -------------
+
+input_number:
+  ph_pump_duration:
+    name: Ph Pump Duration
+    icon: mdi:clock
+    min: 1
+    max: 360
+    step: 1
+
+  bleach_pump_duration:
+    name: Bleach Pump Duration
+    icon: mdi:clock
+    min: 1
+    max: 360
+    step: 1
+
+#---- AQUACHEM INPUT BOOLEANS -------------
+input_boolean:
+  ph_pump_start:
+    name: "Ph Pump Start"
+    initial: off
+
+  bleach_pump_start:
+    name: "Bleach Pump Start"
+    initial: off
+
+#----AQUACHEM SENSORS
+
+sensor:
+  - platform: mqtt
+    state_topic: "Pool/resp"
+    name: "ORP Pump On"
+    value_template: "{% if value.split(':')[0]=='orp' %} {{value.split(':')[1]}} {% endif %}"
+    icon: mdi:water-pump
+  - platform: mqtt
+    state_topic: "Pool/resp"
+    name: "Acid Pump On"
+    value_template: "{% if value.split(':')[0]=='ph' %} {{value.split(':')[1]}} {% endif %}"
+    icon: mdi:water-pump
+  - platform: mqtt
+    state_topic: 'Pool/Ph'
+    value_template: '{{ "%.3f"|format(value|float) }}'
+    name: 'Pool Ph'
+    unit_of_measurement: 'pH'
+  - platform: mqtt
+    state_topic: 'Pool/ORP'
+    value_template: '{{ "%.3f"|format(value|float) }}'
+    name: 'Pool ORP'
+    unit_of_measurement: 'mV'
+  - platform: mqtt
+    state_topic: 'Pool/ORP/moving_average'
+    value_template: '{{ "%.3f"|format(value|float) }}'
+    name: 'Avg ORP'
+    unit_of_measurement: 'mV'
+  - platform: mqtt
+    state_topic: 'Pool/Ph/moving_average'
+    value_template: '{{ "%.3f"|format(value|float) }}'
+    name: 'Avg Ph'
+    unit_of_measurement: 'pH'
+
+#-----AQUACHEM AUTOMATION ENTRIES---------
+
+automation:
+
+  - alias: Ph_pump_activate
+    trigger:
+      - platform: state
+        entity_id: input_boolean.ph_pump_start
+        to: 'on'
+    action:
+      - service: mqtt.publish
+        data_template:
+          {
+             "topic": "Pool",
+             "payload": "ph:on:{{ states.input_number.ph_pump_duration.state|int }}"
+          }
+      - delay: '00:00:01'
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.ph_pump_start
+
+  - alias: Bleach_pump_activate
+    trigger:
+      - platform: state
+        entity_id: input_boolean.bleach_pump_start
+        to: 'on'
+    action:
+      - service: mqtt.publish
+        data_template:
+          {
+             "topic": "Pool",
+             "payload": "orp:on:{{ states.input_number.bleach_pump_duration.state|int }}"
+          }
+      - delay: '00:00:01'
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.bleach_pump_start
