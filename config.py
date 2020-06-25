@@ -4,6 +4,7 @@ from mqtt_as import config
 import json
 import ubinascii
 import machine, onewire, ds18x20
+import scales
 
 
 # Load configuration from file
@@ -45,6 +46,8 @@ class Sensor:
     report_interval = int(d['report_interval']) # how often are Ph and ORP values sent over MQTT (sec)
     ph_ma_window = int(d['ph_ma_window']) # how many datapoints in the moving average window
     orp_ma_window = int(d['orp_ma_window'])
+    load_cell_d_out_pin = int(d['load_cell_d_out_pin'])
+    load_cell_pd_sck_pin = int(d['load_cell_pd_sck_pin'])
 
 class Pump:
     global d
